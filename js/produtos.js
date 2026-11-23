@@ -17,10 +17,10 @@
  * whatsapp:     DDI (55) + DDD + número. Pode escrever com espaços,
  *               parênteses e traços — o site usa só os dígitos.
  * instagram:    o @ como aparece escrito no rodapé.
- * instagramUrl: o endereço do perfil (para onde o link leva).8664-2054
+ * instagramUrl: o endereço do perfil (para onde o link leva).
  */
 const CONFIG = {
-  whatsapp: "+55 (85) 8167-5935",
+  whatsapp: "+55 (85) 8664-2054",
   instagram: "@puradocura.fortaleza",
   instagramUrl: "https://www.instagram.com/puradocura.fortaleza/",
 };
