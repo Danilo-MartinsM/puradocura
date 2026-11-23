@@ -1,0 +1,759 @@
+/* ============================================================
+   Pura Doçura — estilos do site inteiro (as 3 páginas usam este arquivo)
+   Cores e fontes seguem o manual de identidade visual.
+   ============================================================
+
+   COMO ACHAR AS COISAS AQUI (use Ctrl + F pelo nome entre aspas):
+     "VARIÁVEIS"          → cores, fontes, largura máxima, arredondamento
+     "Cabeçalho e menu"   → barra do topo
+     "Assinatura"         → logo "Pura Doçura" feito com texto
+     "Botões"             → botões cor de framboesa
+     "Seções"             → faixas de fundo (amêndoa / rosa) e espaçamentos
+     "Destaque"           → topo da página inicial
+     "Cartões e grade"    → cartões de "Nossos doces"
+     "Passos"             → "Como encomendar" (1, 2, 3)
+     "Selo circular"      → selo "feito à mão" da página História
+     "Rodapé"             → rodapé marrom (cacau)
+     "Manifesto"          → "Feito à mão, feito com amor..."
+     "Monte seu pedido"   → abas, lista de produtos, + e −, formulário
+
+   DICA: os tamanhos com "min-width" dentro de @media valem só para
+   telas maiores (tablet/computador). Fora deles, é o visual do celular.
+
+   As fontes (Fraunces, Jost, Ballet) são carregadas no <head> de cada página.
+   ============================================================ */
+
+/* ---------- VARIÁVEIS ----------
+   Mudar uma cor aqui muda no site todo. As cores são as do manual. */
+:root {
+  --algodao: #fbf8f3;   /* fundo e respiro */
+  --amendoa: #e6d5c3;   /* papelaria e caixas */
+  --rosa-seco: #e6c9c2; /* destaque suave */
+  --framboesa: #8c4a47; /* assinatura, detalhes, botões */
+  --cacau: #3b2621;     /* texto e traço, rodapé */
+
+  --fonte-titulo: "Fraunces", Georgia, serif;           /* títulos */
+  --fonte-apoio: "Jost", "Helvetica Neue", Arial, sans-serif; /* textos, preços, botões */
+  --fonte-assinatura: "Ballet", cursive;                /* só "Pura" e assinaturas */
+
+  --largura: 1080px; /* largura máxima do conteúdo em telas grandes */
+  --gutter: 1rem;    /* margem lateral no celular */
+  --raio: 14px;      /* arredondamento dos cantos de cartões e fotos */
+}
+
+/* ---------- Base: regras gerais para todos os elementos ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 84px; /* espaço do cabeçalho fixo */
+}
+
+body {
+  margin: 0;
+  background: var(--algodao);
+  color: var(--cacau);
+  font-family: var(--fonte-apoio);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--framboesa);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fonte-titulo);
+  font-weight: 300;
+  line-height: 1.15;
+  margin: 0 0 0.6em;
+}
+
+h1 { font-size: clamp(2.1rem, 7vw, 3.2rem); }
+h2 { font-size: clamp(1.7rem, 5vw, 2.4rem); }
+h3 { font-size: 1.35rem; font-weight: 400; }
+
+p {
+  margin: 0 0 1em;
+}
+
+em,
+.italico {
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  font-weight: 300;
+}
+
+:focus-visible {
+  outline: 2px solid var(--framboesa);
+  outline-offset: 3px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- Rótulo: títulos pequenos em caixa alta espaçada ---------- */
+.rotulo {
+  display: block;
+  font-family: var(--fonte-apoio);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--framboesa);
+  margin-bottom: 0.9rem;
+}
+
+/* ---------- Cabeçalho e menu ---------- */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(251, 248, 243, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--amendoa);
+}
+
+.cabecalho__conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 64px;
+}
+
+.cabecalho__marca {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: var(--cacau);
+  flex-shrink: 0;
+}
+
+.cabecalho__marca img {
+  width: 22px;
+}
+
+.cabecalho__nome {
+  font-family: var(--fonte-titulo);
+  font-size: 1.2rem;
+  display: none;
+}
+
+.menu {
+  display: flex;
+  gap: 0.15rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  display: block;
+  padding: 0.5rem 0.55rem;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cacau);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.menu a:hover,
+.menu a.ativo {
+  color: var(--framboesa);
+  border-bottom-color: var(--framboesa);
+}
+
+@media (min-width: 640px) {
+  .cabecalho__nome { display: inline; }
+  .menu { gap: 0.6rem; }
+  .menu a { font-size: 0.8rem; padding: 0.5rem 0.7rem; }
+}
+
+/* ---------- Assinatura (logo em HTML) ---------- */
+.assinatura {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  color: var(--cacau);
+}
+
+.assinatura__simbolo {
+  width: 34px;
+  margin-bottom: 0.6rem;
+}
+
+.assinatura__pura {
+  font-family: var(--fonte-assinatura);
+  color: var(--framboesa);
+  font-size: clamp(2.2rem, 9vw, 3.4rem);
+  margin-bottom: -0.35em;
+  margin-left: -1.6em;
+  position: relative;
+  z-index: 1;
+}
+
+.assinatura__docura {
+  font-family: var(--fonte-titulo);
+  font-weight: 400;
+  font-size: clamp(3.4rem, 15vw, 5.6rem);
+  letter-spacing: -0.01em;
+}
+
+.assinatura__sub {
+  margin-top: 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.assinatura--clara,
+.assinatura--clara .assinatura__docura {
+  color: var(--algodao);
+}
+
+.assinatura--clara .assinatura__pura {
+  color: var(--rosa-seco);
+}
+
+/* ---------- Onda divisória (do manual) ---------- */
+.onda {
+  display: block;
+  width: 140px;
+  height: 12px;
+  margin: 1.1rem auto;
+  color: var(--framboesa);
+}
+
+/* ---------- Botões ---------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--framboesa);
+  border-radius: 999px;
+  background: var(--framboesa);
+  color: var(--algodao);
+  font-family: var(--fonte-apoio);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.botao:hover {
+  background: var(--cacau);
+  border-color: var(--cacau);
+}
+
+.botao--contorno {
+  background: transparent;
+  color: var(--framboesa);
+}
+
+.botao--contorno:hover {
+  color: var(--algodao);
+}
+
+/* ---------- Seções ---------- */
+.secao {
+  padding: 3.5rem 0;
+}
+
+.secao--amendoa { background: var(--amendoa); }
+.secao--rosa { background: var(--rosa-seco); }
+
+.secao__cabeca {
+  text-align: center;
+  max-width: 40rem;
+  margin: 0 auto 2.25rem;
+}
+
+@media (min-width: 768px) {
+  .secao { padding: 5rem 0; }
+}
+
+/* ---------- Destaque (hero) ---------- */
+.destaque {
+  text-align: center;
+  padding-top: 3.5rem;
+  padding-bottom: 4rem;
+}
+
+.destaque__chamada {
+  max-width: 30rem;
+  margin: 0 auto 1.8rem;
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
+.destaque__categorias {
+  margin-top: 2.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  line-height: 2;
+  text-transform: uppercase;
+  color: var(--framboesa);
+}
+
+/* ---------- Cartões e grade ---------- */
+.grade {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+  .grade--2,
+  .grade--4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .grade--4 { grid-template-columns: repeat(4, 1fr); }
+  .grade--3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+.cartao {
+  background: var(--algodao);
+  border-radius: var(--raio);
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(59, 38, 33, 0.06);
+}
+
+.cartao img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.cartao__texto {
+  padding: 1.1rem 1.2rem 1.3rem;
+}
+
+.cartao__texto p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ---------- Sobre (duas colunas) ---------- */
+.duas-colunas {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.duas-colunas img {
+  border-radius: var(--raio);
+}
+
+@media (min-width: 768px) {
+  .duas-colunas { grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+}
+
+/* ---------- Passos ---------- */
+.passos {
+  counter-reset: passo;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.passos li {
+  counter-increment: passo;
+  text-align: center;
+  padding: 1.5rem 1.2rem;
+}
+
+.passos li::before {
+  content: counter(passo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1rem;
+  border: 1px solid var(--framboesa);
+  border-radius: 50%;
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--framboesa);
+}
+
+.centro {
+  text-align: center;
+}
+
+/* ---------- Selo circular ---------- */
+.selo {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  color: var(--framboesa);
+}
+
+.selo text {
+  font-family: var(--fonte-apoio);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 3.2px;
+  fill: currentColor;
+}
+
+/* ---------- Rodapé (versão "sobre cacau") ---------- */
+.rodape {
+  background: var(--cacau);
+  color: var(--amendoa);
+  text-align: center;
+  padding: 3.5rem 0 2.5rem;
+}
+
+.rodape .assinatura__docura {
+  font-size: 2.8rem;
+}
+
+.rodape .assinatura__pura {
+  font-size: 1.9rem;
+}
+
+.rodape__frase {
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--rosa-seco);
+  margin: 1.4rem 0;
+}
+
+.rodape__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+}
+
+.rodape__links a {
+  color: var(--algodao);
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid var(--framboesa);
+  padding-bottom: 2px;
+}
+
+.rodape__links a:hover {
+  border-bottom-color: var(--rosa-seco);
+}
+
+.rodape__copy {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.so-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Manifesto (Nossa história) ---------- */
+.manifesto__texto {
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+
+.manifesto__assinatura {
+  font-family: var(--fonte-assinatura);
+  font-size: 2.4rem;
+  color: var(--framboesa);
+  margin-bottom: 2rem;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---------- Monte seu pedido ---------- */
+.pedido {
+  max-width: 760px;
+}
+
+.abas {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.35rem;
+  background: var(--amendoa);
+  border-radius: 999px;
+  margin: 0 auto 0.8rem;
+  max-width: 420px;
+}
+
+.aba {
+  flex: 1;
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cacau);
+  font-family: var(--fonte-apoio);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.aba[aria-selected="true"] {
+  background: var(--algodao);
+  color: var(--framboesa);
+  box-shadow: 0 1px 3px rgba(59, 38, 33, 0.12);
+}
+
+.aba__dica {
+  text-align: center;
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.categoria {
+  margin-bottom: 2rem;
+}
+
+.categoria__titulo {
+  font-family: var(--fonte-apoio);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--framboesa);
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--amendoa);
+  margin-bottom: 0.4rem;
+}
+
+.produtos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.produto {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  grid-template-areas:
+    "foto info"
+    "foto qtd";
+  gap: 0.3rem 0.9rem;
+  align-items: start;
+  padding: 1rem 0.6rem;
+  border-bottom: 1px solid var(--amendoa);
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.produto--escolhido {
+  background: rgba(230, 201, 194, 0.45);
+}
+
+.produto__foto {
+  grid-area: foto;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.produto__info {
+  grid-area: info;
+  min-width: 0;
+}
+
+.produto__nome {
+  font-size: 1.1rem;
+  margin: 0 0 0.15rem;
+}
+
+.produto__descricao {
+  font-size: 0.9rem;
+  margin: 0 0 0.25rem;
+  opacity: 0.85;
+}
+
+.produto__preco {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--framboesa);
+  margin: 0;
+}
+
+.qtd {
+  grid-area: qtd;
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  border: 1px solid var(--framboesa);
+  border-radius: 999px;
+}
+
+.qtd__botao {
+  width: 44px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: var(--framboesa);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.qtd__botao:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.qtd__valor {
+  min-width: 2ch;
+  text-align: center;
+  font-weight: 500;
+}
+
+@media (min-width: 560px) {
+  .produto {
+    grid-template-columns: 80px 1fr auto;
+    grid-template-areas: "foto info qtd";
+    align-items: center;
+  }
+  .produto__foto { width: 80px; height: 80px; }
+  .qtd { justify-self: end; }
+}
+
+.pedido__form {
+  margin-top: 2.5rem;
+  padding: 1.6rem 1.2rem;
+  background: var(--amendoa);
+  border-radius: var(--raio);
+}
+
+@media (min-width: 560px) {
+  .pedido__form { padding: 2rem; }
+}
+
+.pedido__titulo {
+  font-size: 1.6rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.1rem;
+}
+
+.campo__rotulo {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.campo input,
+.campo textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(59, 38, 33, 0.25);
+  border-radius: 10px;
+  background: var(--algodao);
+  color: var(--cacau);
+  font-family: var(--fonte-apoio);
+  font-size: 1rem; /* 16px evita zoom automático no iPhone */
+}
+
+.campo input:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--framboesa);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.pedido__aviso {
+  background: var(--algodao);
+  border-left: 3px solid var(--framboesa);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.2rem;
+  color: var(--framboesa);
+  font-weight: 500;
+}
+
+.pedido__aviso p {
+  margin: 0;
+}
+
+.pedido__envio {
+  text-align: center;
+}
+
+.pedido__resumo {
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  margin-bottom: 0.8rem;
+}
+
+.botao--whatsapp {
+  width: 100%;
+  max-width: 420px;
+}
+
+.pedido__nota {
+  font-size: 0.82rem;
+  margin: 0.9rem 0 0;
+  opacity: 0.8;
+}

@@ -1,0 +1,8 @@
+<!-- PROVISÓRIO: troque por uma foto real (mesmo nome de arquivo, ou ajuste o caminho no HTML/produtos.js) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" role="img" aria-label="Nossa cozinha">
+  <rect width="600" height="450" fill="#E6D5C3"/>
+  <circle cx="300" cy="195" r="92" fill="none" stroke="#8C4A47" stroke-width="2" stroke-dasharray="4 7" opacity=".55"/>
+  <path d="M215 330 q21 -12 42 0 t42 0 t42 0 t42 0" fill="none" stroke="#8C4A47" stroke-width="2" opacity=".7"/>
+  <text x="300" y="212" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="46" fill="#3B2621">Nossa cozinha</text>
+  <text x="300" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" letter-spacing="5" fill="#8C4A47">FOTO EM BREVE</text>
+</svg>

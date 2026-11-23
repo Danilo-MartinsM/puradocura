@@ -1,0 +1,136 @@
+<!doctype html>
+<!--
+  ============================================================
+  MONTE SEU PEDIDO (pedido.html)
+  ============================================================
+  A lista de produtos NÃO está neste arquivo: ela é montada pelo js/pedido.js
+  a partir dos produtos cadastrados em js/produtos.js.
+  Ordem: título → abas (Encomendas / Pronta entrega) → lista → formulário → botão.
+  Partes que se repetem nas 3 páginas (index, historia, pedido):
+    - CABEÇALHO (logo + menu) e RODAPÉ. Se mudar um, mude nos outros dois.
+  Número do WhatsApp e @ do Instagram NÃO ficam aqui: estão em js/produtos.js.
+  Cores, fontes e tamanhos ficam em css/estilo.css.
+  Textos marcados com PROVISÓRIO devem ser trocados pelos reais.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Título da aba do navegador e descrição que aparece no Google/WhatsApp -->
+  <title>Monte seu pedido · Pura Doçura</title>
+  <meta name="description" content="Escolha seus doces e envie o pedido direto para o WhatsApp da Pura Doçura.">
+  <!-- Ícone da aba do navegador -->
+  <link rel="icon" href="imagens/simbolo-p.png">
+  <!-- Fontes da marca (Google Fonts): Fraunces, Jost e Ballet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Jost:wght@400;500&display=swap">
+  <!-- Estilo do site inteiro (cores, fontes, layout) -->
+  <link rel="stylesheet" href="css/estilo.css">
+  <!-- Scripts (a ordem importa):
+       produtos.js = dados | mensagem.js = monta a mensagem
+       layout.js = rodapé | pedido.js = faz a página funcionar -->
+  <script src="js/produtos.js" defer></script>
+  <script src="js/mensagem.js" defer></script>
+  <script src="js/layout.js" defer></script>
+  <script src="js/pedido.js" defer></script>
+</head>
+<body>
+
+  <!-- ===================== CABEÇALHO: logo + menu (igual nas 3 páginas) ===================== -->
+  <header class="cabecalho">
+    <div class="container cabecalho__conteudo">
+      <a class="cabecalho__marca" href="index.html">
+        <img src="imagens/simbolo-p.png" alt="">
+        <span class="cabecalho__nome">Pura Doçura</span>
+        <span class="so-leitor">Pura Doçura — início</span>
+      </a>
+      <nav aria-label="Principal">
+        <!-- Menu: class="ativo" marca a página em que a pessoa está -->
+        <ul class="menu">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="historia.html">Nossa história</a></li>
+          <li><a href="pedido.html" class="ativo" aria-current="page">Pedido</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="secao">
+    <div class="container pedido">
+      <!-- Título e explicação do topo -->
+      <div class="secao__cabeca">
+        <span class="rotulo">Monte seu pedido</span>
+        <h1>O que vai ser <em>hoje?</em></h1>
+        <p>Escolha os itens e envie pelo WhatsApp. A confeiteira responde para combinar sabores, valor final e entrega.</p>
+      </div>
+
+      <!-- Abas: somem sozinhas se não houver produtos de pronta entrega -->
+      <div class="abas" role="tablist" aria-label="Tipo de pedido" id="abas">
+        <button type="button" role="tab" class="aba" id="aba-encomenda" data-tipo="encomenda" aria-selected="true" tabindex="0" aria-controls="lista-produtos">Encomendas</button>
+        <button type="button" role="tab" class="aba" id="aba-pronta" data-tipo="pronta" aria-selected="false" tabindex="-1" aria-controls="lista-produtos">Pronta entrega</button>
+      </div>
+
+      <!-- Frase embaixo das abas (texto definido em DICAS, no js/pedido.js) -->
+      <p class="aba__dica" id="dica-aba"></p>
+
+      <!-- A lista de produtos é desenhada aqui dentro pelo js/pedido.js -->
+      <div id="lista-produtos" role="tabpanel" aria-labelledby="aba-encomenda"></div>
+
+      <!-- ===================== DADOS DO CLIENTE ===================== -->
+      <form class="pedido__form" id="form-pedido" novalidate>
+        <h2 class="pedido__titulo">Seus dados</h2>
+
+        <label class="campo">
+          <span class="campo__rotulo">Seu nome *</span>
+          <input type="text" id="campo-nome" name="nome" autocomplete="given-name" required>
+        </label>
+
+        <!-- Data: só aparece na aba Encomendas -->
+        <label class="campo" id="campo-data-wrap">
+          <span class="campo__rotulo">Para quando? (encomendas)</span>
+          <input type="date" id="campo-data" name="data">
+        </label>
+
+        <label class="campo">
+          <span class="campo__rotulo">Observação</span>
+          <textarea id="campo-obs" name="observacao" rows="3" placeholder="sabor, tema, tamanho, retirada ou entrega..."></textarea>
+        </label>
+
+        <!-- Aviso de erro ("Informe seu nome." etc.) — aparece só quando falta algo -->
+        <div class="pedido__aviso" id="aviso" role="alert" hidden></div>
+
+        <div class="pedido__envio">
+          <!-- "N itens escolhidos" (atualizado sozinho) -->
+          <p class="pedido__resumo" id="resumo" aria-live="polite">Nenhum item escolhido</p>
+          <button type="submit" class="botao botao--whatsapp">Enviar pedido pelo WhatsApp</button>
+          <!-- Nota sobre preço (texto definido em NOTAS, no js/pedido.js) -->
+          <p class="pedido__nota" id="nota-preco"></p>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- ===================== RODAPÉ (igual nas 3 páginas) =====================
+       Os links de WhatsApp e Instagram são preenchidos sozinhos pelo js/layout.js
+       usando os dados de js/produtos.js (CONFIG). Não precisa editar o href aqui. -->
+  <footer class="rodape">
+    <div class="container">
+      <div class="assinatura assinatura--clara">
+        <img class="assinatura__simbolo" src="imagens/simbolo-p-claro.png" alt="">
+        <span class="assinatura__pura">Pura</span>
+        <span class="assinatura__docura">Doçura</span>
+      </div>
+      <!-- Frase do manifesto da marca -->
+      <p class="rodape__frase">feito à mão, feito com amor, feito para você</p>
+      <ul class="rodape__links">
+        <li><a data-whatsapp href="#" target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a data-instagram data-instagram-texto href="#" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+      <!-- O ano é atualizado sozinho -->
+      <p class="rodape__copy">© <span data-ano>2026</span> Pura Doçura · Confeitaria artesanal</p>
+    </div>
+  </footer>
+
+</body>
+</html>
